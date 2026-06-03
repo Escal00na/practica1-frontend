@@ -4,7 +4,23 @@ const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/api'
 })
 
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
+  return config
+})
+
 export const getProductos = () => api.get('/productos')
-export const createProducto = (data) => api.post('/productos', data)
-export const updateProducto = (id, data) => api.put(`/productos/${id}`, data)
-export const deleteProducto = (id) => api.delete(`/productos/${id}`)
+
+export const createProducto = (data) =>
+  api.post('/productos', data)
+
+export const updateProducto = (id, data) =>
+  api.put(`/productos/${id}`, data)
+
+export const deleteProducto = (id) =>
+  api.delete(`/productos/${id}`)

@@ -5,6 +5,7 @@ import RegisterView from '../views/RegisterView.vue'
 import HomeView from '../views/HomeView.vue'
 import CatalogoView from '../views/CatalogoView.vue'
 import ProductoDetalle from '../views/ProductoDetalle.vue'
+import CartView from '../views/CartView.vue'
 import NotFound from '../views/NotFound.vue'
 
 import AdminLayout from '../layouts/AdminLayout.vue'
@@ -29,6 +30,10 @@ const router = createRouter({
       path: '/catalogo/:id',
       component: ProductoDetalle,
       props: true
+    },
+    {
+      path: '/carrito',
+      component: CartView
     },
     {
       path: '/login',

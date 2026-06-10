@@ -1,3 +1,13 @@
+<script setup>
+import CartIcon from './components/CartIcon.vue'
+</script>
+
 <template>
-  <router-view />
+  <div>
+    <CartIcon />
+
+    <hr>
+
+    <router-view />
+  </div>
 </template>

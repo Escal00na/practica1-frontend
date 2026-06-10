@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
+import { useCarritoStore } from '../stores/carrito'
+
+const carrito = useCarritoStore()
 
 const productos = ref([])
 const busqueda = ref('')
@@ -52,6 +55,22 @@ const productosFiltrados = computed(() =>
       >
         Ver detalle
       </router-link>
+
+      <br><br>
+
+      <button
+        @click="carrito.agregar(producto)"
+      >
+        <template
+          v-if="carrito.cantidadDeProducto(producto.id) > 0"
+        >
+          En carrito ({{ carrito.cantidadDeProducto(producto.id) }})
+        </template>
+
+        <template v-else>
+          Agregar al carrito
+        </template>
+      </button>
 
       <hr>
     </div>

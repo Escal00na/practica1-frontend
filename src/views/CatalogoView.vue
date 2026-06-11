@@ -44,11 +44,26 @@ const productosFiltrados = computed(() =>
       v-for="producto in productosFiltrados"
       :key="producto.id"
     >
-      <h3>{{ producto.nombre }}</h3>
+      <img
+  v-if="producto.imagen_url"
+  :src="producto.imagen_url"
+  :alt="producto.nombre"
+  width="200"
+>
 
-      <p>
-        Precio: ${{ producto.precio }}
-      </p>
+<div
+  v-else
+  style="width:200px;height:150px;border:1px solid black;
+         display:flex;align-items:center;justify-content:center;"
+>
+      Sin imagen
+    </div>
+
+    <h3>{{ producto.nombre }}</h3>
+
+    <p>
+      Precio: ${{ producto.precio }}
+    </p>
 
       <router-link
         :to="`/catalogo/${producto.id}`"

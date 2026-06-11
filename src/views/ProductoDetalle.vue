@@ -31,6 +31,28 @@ const volver = () => {
 <template>
   <div v-if="producto">
     <h1>{{ producto.nombre }}</h1>
+  <img
+    v-if="producto.imagen_url"
+    :src="producto.imagen_url"
+    :alt="producto.nombre"
+    width="300"
+  >
+
+  <div
+    v-else
+    style="
+      width:300px;
+      height:200px;
+      border:1px solid black;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+   "
+  >
+  Sin imagen
+</div>
+
+<br><br>
 
     <p>
       <strong>Descripción:</strong>

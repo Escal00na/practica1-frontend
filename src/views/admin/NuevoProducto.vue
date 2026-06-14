@@ -1,12 +1,13 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import axios from 'axios'
 
 const form = reactive({
   nombre: '',
   descripcion: '',
   precio: '',
-  stock: ''
+  stock: '',
+  categoria_id: ''
 })
 
 const imagen = ref(null)
@@ -14,6 +15,20 @@ const preview = ref(null)
 
 const mensaje = ref('')
 const loading = ref(false)
+
+const categorias = ref([])
+
+onMounted(async () => {
+  try {
+    const { data } = await axios.get(
+      'http://127.0.0.1:8000/api/categorias'
+    )
+
+    categorias.value = data
+  } catch (error) {
+    console.error(error)
+  }
+})
 
 const onImageChange = (event) => {
   const file = event.target.files[0]
@@ -41,6 +56,7 @@ const guardar = async () => {
     fd.append('descripcion', form.descripcion)
     fd.append('precio', form.precio)
     fd.append('stock', form.stock)
+    fd.append('categoria_id', form.categoria_id)
 
     if (imagen.value) {
       fd.append('imagen', imagen.value)
@@ -67,6 +83,7 @@ const guardar = async () => {
     form.descripcion = ''
     form.precio = ''
     form.stock = ''
+    form.categoria_id = ''
 
     imagen.value = null
     preview.value = null
@@ -124,6 +141,24 @@ const guardar = async () => {
         type="number"
         placeholder="Stock"
       >
+
+      <br><br>
+
+      <select v-model="form.categoria_id">
+
+        <option value="">
+          Sin categoría
+        </option>
+
+        <option
+          v-for="cat in categorias"
+          :key="cat.id"
+          :value="cat.id"
+        >
+          {{ cat.nombre }}
+        </option>
+
+      </select>
 
       <br><br>
 
